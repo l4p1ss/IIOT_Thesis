@@ -1,0 +1,135 @@
+\chapter{Framework utilizzati}\label{ch:chapter10}
+La maggior parte delle sfide legate alle WSN non sono ancora state gestite adeguatamente. Anche se il paradigma SDN promette un enorme riduzione del consumo di energia da parte dei nodi, le entità di queste affermazioni devono essere valutate e quantificate.
+A tal proposito SDN-WISE offre un simulatore di rete, chiamato Cooja, che gira sul sistema operativo Contiki e consente di semplifcare la produzione di applicazioni per le WSN, nonché la simulazione per testing e debugging. Inoltre può essere utilizzato a scopo didattico per gli studenti.
+Le simulazioni vengono svolte con topologie di rete differenti, così come il numero di messaggi circolanti in rete verrà variato. \cite{github}
+
+\section{Contiki}
+Contiki è il sistema operativo open source per creare reti IoT wireless a bassa potenza. È stato sviluppato presso lo Swedish Institute of Computer Sciences da Adam Dunkels e il suo team. È scritto nel linguaggio di programmazione C, così come ogni sua estensione. Contiki è un sistema operativo altamente portatile ed è già stato distribuito su diverse piattaforme utilizzanti diversi tipi di processori. La maggior parte di esse spesso usano Texas Instruments MSP-430 o Atmel ATmega come microcontrollori.
+Contiki utilizza un modello di programmazione basato su eventi per gestire la programmazione concorrente. Il suo principale vantaggio è che tutti i processi condividono uno stack consentendo un oneroso risparmio di memoria. Questo modello viene realizzato mediante dei Protothread, i quali forniscono blocking wait, condizionato o meno, per salvare lo stato in modo continuativo. Quando il Protothread viene riattivato, riparte dall'istruzione successiva. Contiki usa anche il cosiddetto Rime stack, una pila di comunicazione per reti di sensori molto leggera, in quanto gli strati sono semplici e hanno piccole intestazioni di pochi byte. Rime supporta anche il riutilizzo del codice col principale scopo di semplificare l'implementazione delle WSN.
+Contiki supporta sia IPv6 che IPv4, nonché i più recenti standard per le reti wireless a bassa potenza, come 6lowpan, RPL e CoAP. La sua popolarità lo ha portato in numerosi sistemi, quali contatori di energia elettrica, moni- toraggio industriale, sistemi di allarme, monitoraggio remoto della casa, del suono nella città, delle radiazioni e via dicendo.
+L'ultima versione Contiki 3.0 è stata rilasciata il 26 agosto 2015
+
+
+\section{Cooja}
+Cooja è il simulatore di rete per Contiki. È un'applicazione Java-based con interfaccia grafica basata sullo standard Java Swing toolkit. Cooja supporta la simulazione per mezzo di onde radio e l'integrazione con tool esterni per fornire funzionalità aggiuntive. L'emulazione può avvenire sia a un livello meno dettagliato, in modo che sia più veloce e consenta la simulazione di reti più grandi, sia a livello hardware, più lento ma che consente un'ispezione precisa del comportamento del sistema.
+\newline
+Questo strumento ha due pacchetti software per la simulazione: Avrora e MSPSim. Il primo è usato da Cooja per l'emulazione di dispositivi basati su Atmel AVR, mentre il secondo per quelli basati su TI MSP430. La mag- gior parte delle piattaforme usano Microcontrollori di questo tipo, pertanto MSPSim è il pacchetto software più utilizzato.
+Cooja può simulare più piattaforme, come TelosB, SkyMote, Zolertia Z1 mo- te, Wismote, ESB, MicaZ mote, ed è molto utile per lo sviluppo e il debugging di applicazioni per Contiki in quanto permette agli sviluppatori di:
+\newline
+- testare il loro codice e i sistemi prima di eseguirlo sull'hardware reale.
+\newline
+- stimare i consumi energetici dei nodi
+\newline
+- mostrare trasmissioni e ricezioni radio.
+\newline
+Per avviare Cooja è necessario disporsi nella cartella che lo contiene (nello specifico \textit{sdn-wise-contiki z1/contiki/tools/cooja} ) e invocare il comando \textit{ant run} dal terminale. Cooja partirà con una finestra blu vuota non appena la compilazione sarà conclusa.
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_10_1}
+\caption{Finestra iniziale simulatore Cooja}
+\label{fig:6_4}
+\end{figure}
+\newline
+La prima cosa da eseguire è aggiungere una estensione che mi permette di aggiungere i mote e i sink che ho modificato nel programma sdn-wise-java. Per aggiungere questa estensione occorre cliccare su \textit{Settings --> Cooja Extension}.
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_10_2}
+\caption{Aggiungere estensione per Cooja}
+\label{fig:6_4}
+\end{figure}
+\newline
+Una volta aggiunta questa estensione possiamo creare una nuova simulazione (\textit{File --> New Simulation}). Viene richiesto ora di inserire un nome per la simulazione, dopodiché ci troveremo di fronte al seguente pannello di Cooja:  
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_10_3}
+\caption{Pannello simulazione Cooja}
+\label{fig:6_4}
+\end{figure}
+\newline
+Cliccando su \textit{Mote --> Add motes --> Create new mote type} e scegliere tra i vari \textit{SDN-WISE Emulated Mote/Sink/Actuator Mote/Actuator Sink} in base alla simulazione che si vuole realizzare. 
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_10_4}
+\caption{Aggiunta Mote}
+\label{fig:6_4}
+\end{figure}
+\newline
+Il simulatore chiederà quanti mote aggiungere e in quale posizione e li inserirà come richiesto. 
+\newline
+\newline
+Nella figura 10.3 sono presenti dei tools di Cooja che verranno descritti brevemente:
+\newline
+- \textbf{Network}:  mostra la disposizione dei nodi della rete.Si può visualizzare anche la loro posizione il loro Id, il loro tipo, e la copertura radio.
+\newline
+- \textbf{Simulation Control}: viene usato per far partire, stoppare, ricaricare la simulazione e indica anche il tempo trascorso.
+\newline
+- \textbf{Mote Output}: Mostra tutti gli output dei vari nodi della rete.
+\newline
+- \textbf{Notes}: un semplice Notepad per prendere appunti sulla simulazione in corso.
+\newline
+- \textbf{Timeline}: mostra la timeline degli eventi come log output, cambio di canale, etc.
+
+\section{IntelliJ IDEA e Linux Ubuntu 14.04}
+Tra gli strumenti utilizzati vi sono anche l'ambiente di sviluppo \textit{IntelliJ IDEA} sviluppato da \textit{JetBrains}, e il sistema operativo \textit{Linux Ubuntu 14.04} alla base della macchina virtuale ospitante il framework.
+\newline
+Una volta lanciata la macchina virtuale è necessario eseguire queste semplici operazioni per eseguire il programma \textit{IntelliJ Idea}:
+\newline
+1 - aprire il terminale sulla macchina virtuale
+\newline
+2 - digitare \textit{cd /opt/idea/bin} e premere invio
+\newline
+3 - digitare \textit{./idea.sh} e premere invio
+\newline
+\newline
+A questo punto si aprirà il programma \textit{IntelliJ Idea} e qualora non fosse stato ancora fatto è necessario caricare la cartella \textit{snd-wise-java} e tutti i suoi files. \newline
+Nello specifico la cartella \textit{snd-wise-java} contiene tre macro package:
+ \newline
+- \textbf{core}: contiene tutte le informazioni riguardante i pacchetti scambiati dai nodi SDN-WISE e le informazioni che riguardano le Flow Tables.
+\newline
+- \textbf{control}:  contiene tutte le informazioni riguardante il Controller, dalla sua creazione alle se funzionalità; contiene il package network graph, dove al suo interno viene creato il visual network graph. Inoltre é presente anche il package loader dove é presente il file che carica il progetto SDN-WISE.
+\newline
+- \textbf{data}: contiene tutte le informazione riguardante i nodi della rete, dalla creazione alle loro funzionalità e tutte le informazioni sulla batteria.
+\newline
+\newline
+Una volta effettuati i cambiamenti al codice ed ai vari file, sempre all'interno di \textit{IntelliJ Idea} è necessario eseguire in sequenza queste operazioni:
+\newline
+- cliccare su \textit{View -> Tool Window -> maven} 
+\newline
+Una volta che si sarà aperto il pannello eseguire in successione i seguenti comandi:
+\newline
+- \textit{clean}
+\newline
+- \textit{install}.
+\newline
+Infine sempre da terminale eseguire:
+\textit{sudo cp -avr /home/user/sdn-wise-java/data/target/sdn-wise-data-4.0.1-SNAPSHOT-jar-with-dependencies.jar} 
+\newline
+\textit{/home/user/sdn-wise-contiki z1/sdn-wise-emulated/lib/sdn-wise-data.jar}
+\newline
+\newline
+A questo punto è possibile lanciare la simulazione come abbiamo visto in precedenza. Per semplificare tutte queste operazioni ripetitive e meccaniche, è stato creato uno script. Il file in questione è stato chiamato \textit{compile.sh} ed una volta eseguite le varie modifiche è sufficiente scrivere direttamente nel terminale di \textit{IntelliJ Idea}:
+\newline
+- \textit{bash compile.sh}
+\newline
+\newline
+A questo punto, mentre contestualmente viene lanciata la simulazione, basterà cliccare il pulsante \textit{run} su \textit{IntelliJ Idea} ed appariranno a schermo il controller SDN-WISE ed il GraphStream.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

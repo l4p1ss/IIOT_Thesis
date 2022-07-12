@@ -1,0 +1,159 @@
+\chapter{SDN Control Plane}\label{ch:chapter6}
+\section{SDN Control Plane Architecture}
+L'SDN control layer mappa le richieste dell'application layer in specifici comandi e direttive per il Data Plane. Il control layer viene implementato come un server o un set di server noti come SDN controllers. \cite{fog}
+\subsection{Funzioni del Control Plane}
+Le funzionalità in dotazione all'SDN Controller posso essere viste come quelle di un \textbf{network operating sistem (NOS)}. Come su un convenzionale sistema operativo, un NOS ha in dotazione servizi essenziali, comuni interfacce applicative (APIs) e astrazioni di elementi di basso livello per gli sviluppatori. 
+\newline
+La funzione di un SDN NOS permette agli sviluppatori di definire politiche per la rete e controllare la rete senza preoccuparsi delle caratteristiche dei dispositivi che possono essere sia eterogenee che dinamiche. 
+\newline
+Un cospicuo numero di iniziative, sia commerciali che open source, ha portato all'implementazione di diversi SDN Controllers: OpenDaylight, Open Network operating System (ONOS), POX, Beacon, Floodlight, Ryu ed Onix.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_5_2}
+\caption{SDN Control Plane Functions and Interfaces}
+\label{fig:5_2}
+\end{figure}
+
+\subsection{Southbound Interface}
+La southbound interface si occupa della connessione logica tra il Controller SDN e gli switch del data plane. Alcuni controller supportano e consento di configurare solo un singolo southbound protocol. Un approccio più flessibile è l'uso di un southbound abstraction layer che permette una comune interfaccia per le funzioni del control plane e il supporto a molteplici APIs southbound.
+\newline
+L'implementazione più comune del southbound API è OpenFlow come abbiamo visto in precedenza.
+
+\subsection{NorthBound Interfaces}
+
+L'interfaccia northbound permette alle applicazioni di accedere alle funzioni del control plane e i vari servizi senza la necessità di conoscere i dettagli dei sottostanti switch network. L'interfaccia northbound è tipicamente vista come una API software rispetto ad un vero e proprio protocollo. 
+\newline
+A differenza con la southbound interface non c'è nessuno standard da seguire o da rispettare. Il risultato di ciò è che sono state sviluppate innumerevoli controller complicando lo sviluppo delle applicazioni SDN. Per ovviare questo problema la Open Networking Foundation a costituito un Interface Working Group (NBI-WG) nel 2013 con l'obiettivo di definire e standardizzare un numero cospicuo di Northbound APIs. Attualmente non è stato ancora rilasciato nessuno standard. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_5_3}
+\caption{SDN Controller Interfaces}
+\label{fig:5_2}
+\end{figure}
+
+\subsection{Routing}
+Il network SDN richiede delle funzioni di routing. In termini generali le funzioni di routing includono una collezione di informazioni sulla topologia e sul traffico della rete ed un algoritmo per delineare al meglio i percorsi all'interno della rete.
+\newline
+Esistono due categorie di protocolli di routing:
+\newline
+- \textbf{Interior Router Protocols (IRPs)}: opera all'interno di sistemi autonomi (AS). I protocolli di routing più diffusi sono Open Shortest Path First (OSPF) Protocol e Enhanced Interior Gateway Routing Protocol (EIGRP).
+\newline
+- \textbf{Exterior Router Protocols (ERPs)}: opera attraverso sistemi autonomi. L'ERP è tipicamente eseguito solamente nei nodi a margine ed il protocollo di routing più utilizzato è il Border Gateway Protocol (BGP).
+\newline
+\newline
+Tradizionalmente le varie funzioni di routing sono distribuite all'interno dei router che si trovano nella rete. Tuttavia, in una rete SDN-controlled, ha più senso centralizzare le funzioni di routing nel controller SDN poiché il controller può sviluppare una vista della rete più consistente ed aiutare a calcolare cammini più brevi all'interno della rete oltre ad aiutare l'implementazione delle applicazioni tenendo conto delle politiche di routing.
+\newline
+\newline
+L'applicazione centralizzata del routing rappresenta due distinte funzioni:
+\newline
+- \textbf{Link Discovery}: le funzioni di routing devo essere a conoscenza dei link attraverso gli switches nel data plane. Nelle reti tradizionali il link attraverso i network avviene in maniera diretta come nel caso degli Ethernet switches. In addizione il link discovery deve essere realizzato attraverso un router ed un sistema di host e attraverso il router nel dominio del suo controller e il router nel dominio adiacente. 
+\newline
+- \textbf{Topology Manager}: mantiene la topologia di informazione per la rete e calcolerà le strade attraverso la rete. Il calcolo della rete determina il cammino più corto tra due nodi nel data plane o tra un nodo del data plane e un host.
+
+\section{ITU-T Model}
+In questo paragrafo descriveremo l'architettura SDN ad alto livello definita in ITU-T Y.3300.
+\newline
+L'\textbf{application layer} è dove le applicazioni SDN specificano servizi network o applicazioni business definendo le risorse della rete o i servizi fondamentali per loro. Le applicazioni interagiscono con l'SDN control layer attraverso le APIs che formano l'interfaccia application-control.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_5_6}
+\caption{High Level Architecture of SDN(ITU-T Y.3300)}
+\label{fig:5_6}
+\end{figure}
+
+Il \textbf{control layer} racchiude un significato di controllo  del comportamento delle risorse della rete. Il control layer può essere visto come i seguenti sublayers:
+\newline
+- \textbf{Application support}: fornisce un'API per le applicazioni SDN per accedere alle informazioni della rete e programmare specifici comportamenti della rete.
+\newline
+- \textbf{Orchestration}: fornisce il controllo automatico e la gestione delle risorse della rete; inoltre coordina le richieste dall'application layer verso le risorse della rete. Orchestration racchiude topologie di rete sia fisiche che virtuali, elementi della rete, controllo del traffico e altri aspetti correlati alla rete.
+\newline
+- \textbf{Abstraction}: interagisce con le risorse della rete e consente un'astrazione delle risorse della rete in tutte le sue caratteristiche a supporto del management e dell'orchestration della rete.
+\newline
+Il \textbf{resource layer} consiste nell'interconnessione degli elementi di instradamento del data plane, gli switches. Collettivamente questi ultimi consentono di trasportare e di processare i pacchetti di dati in accordo con l'SDN control layer. La maggior parte di questi controlli avviene per conto delle applicazioni. Il resource layer può essere visto come i seguenti sublayers:
+\newline
+- \textbf{Control support}: supporta la programmabilità delle funzioni del resource-layer attraverso l'interfaccia del resource control.
+\newline
+- \textbf{Data transport and processing}: permette l'inoltro dei dati e le funzioni di routing.
+
+\section{Rest}
+\textbf{REpresentational State Transfer (REST)} è uno stile di architettura utilizzato per definire le APIs. È diventato lo stile di riferimento per le NorthBound APIs per i controller SDN. Una "REST API", o una API che si dice "RESTful" (ovvero che aderisce ai vincoli di REST) non è un protocollo, linguaggio o uno standard prestabilito ma rappresenta essenzialmente sei regole che le API devono obbligatoriamente seguire per definirsi RESTful.
+\newline
+\newline
+\textbf{REST CONSTRAINTS}:
+\newline
+- \textbf{Client-server}: separazione fra interfaccia utente e dati salvati.
+\newline
+- \textbf{Stateless}: il server non memorizza nessun record dell'utente.
+\newline
+- \textbf{Cache}: ogni dato deve avere un'etichetta in cui è scritto se è "cacheable" oppure no. Nel caso in cui lo sia questa potrà essere riutilizzata in seguito.
+\newline
+- \textbf{Uniform interface}: REST enfatizza un'interfaccia uniforme tra i vari componenti. Per far questo REST definisce quattro regole:
+\newline
+1. Le risorse sono identificate mediante un identifier, ad esempio un URI.
+\newline
+2. Le risorse sono rappresentate in formati come JSON, XML, HTML.
+\newline
+3. Ogni messaggio ha abbastanza informazioni per descrivere come viene processato.
+\newline
+4. Un client non deve essere a conoscenza di come interagisce con il server.
+\newline
+- \textbf{Layered system}: una funzione è organizzata in livelli ed ogni livello comunica direttamente con il livello sotto o il livello sopra.
+ \newline
+- \textbf{Code on demand}: consente al cliente di essere scaricato per aumentare l'estensibilità del codice.
+
+\subsection{Esempio di REST API}
+Consideriamo la funzione che descrive tutte le entità di una group table di un particolare switch. L'URI di questa funzione è il seguente:
+\newline
+\textit{/stats/group/<dpid>} 
+\newline
+dove stats (statistiche) si riferisce al set di APIs che ricevono e aggiornano le statistiche e i parametri degli switch, mentre <dpid> (Data Path ID) è l'identificatore univoco per lo switch. Per invocare la funzione per lo switch 1 è necessario il seguente comando allo switch manager attraverso la REST API:
+\newline
+\textit{GET http://localhost:8080/stats/groupdesc/1} 
+\newline
+IL \textbf{localhost} indica che l'applicazione sta girando sullo stesso server. Nel caso in cui fosse stata remota l'URI sarebbe stato un URL che riesce ad accedere via HTTP attraverso il web.
+
+\section{Cooperazione e coordinazione fra Controllers}
+In addizione alle northbound e southbound interfaces, un tipico controller SDN ha una east/westbound interface che gli consente di comunicare con altri controller ed altre reti. Attualmente non ci sono stati significanti progressi su protocolli open source o protocolli standardizzati per le est/westbound interfaces.
+
+\subsection{Controller Centralizzati vs Controller Distribuiti}
+Un controller centralizzato è un singolo server che controlla tutto il data plane degli switches all'interno della rete.
+\newline
+Nelle grandi infrastrutture di rete, l'utilizzo di un solo controller che gestisce tutti i dispositivi network della rete risulta scomodo e indesiderato. Uno scenario più gradito sarebbe che venisse divisa la rete in un numero domini SDN non sovrapposti, chiamati anche \textit{SDN Islands} (figura 5.4) gestite da controller distribuiti.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_5_7}
+\caption{Struttura Dominio SDN}
+\label{fig:5_7}
+\end{figure}
+
+Le ragioni per utilizzare i domini SDN sono le seguenti:
+\newline
+- \textbf{Scalability}: il numero di devices che un controller SDN può fisicamente gestire è limitato e proprio per questo motivo una rete molto grande ha bisogno di utilizzare più controller SDN.
+\newline
+- \textbf{Reliability}: l'uso di controllers multipli evita il rischio di avere un singolo punto di errore.
+\newline
+- \textbf{Privacy}: un operatore può scegliere di implementare differenti politiche di privacy in differenti domini SDN.
+\newline
+- \textbf{Incremental Deployment}: un operatore di rete può essere costituito da porzioni di infrastrutture datate e non. Dividendo la rete in dominio SDN multipli controllabili permette di ottenere flessibilità nell'utilizzo e per gli sviluppi futuri.
+\newline
+\newline
+I controller distribuiti possono essere collocati in piccole aree, in aree molto vasta oppure in una combinazione di esse. Controllers installati ravvicinati offrono un'alta produttività e sono appropriati per i data centers; invece controllers installati lontano possono contenere reti multilocation.
+\newline
+Tipicamente i controller distribuiti sono installati orizzontalmente ed in un'architettura distribuita è necessario un protocollo per permettere ai controller di comunicare.
+ 
+\subsection{Border Gateway Protocol}
+Il Border Gateway Protocol (BGP) è stato sviluppato per usare in congiunzione con i protocolli TCP/IP di Internet ed è diventato l'\textbf{exterior router protocol (ERP)} predefinito per Internet. 
+\newline
+BGP abilita i router, comunica con i gateways ed in differenti sistemi autonomi permettendo loro di comunicare e di scambiare informazioni di routing. Il protocollo opera attraverso dei messaggi che sono inviati attraverso connessioni TCP.
+\newline
+Ci sono tre funzionalità coinvolte nel BGP:
+\newline
+- \textbf{Neighbor acquisition}: il termine \textbf{neighbor} indica che due router condividono la stessa rete. La neighbor acquisition avviene quando due router in due sistemi autonomi differenti concordano di scambiarsi informazioni regolarmente.
+\newline
+- \textbf{Neighbor reachability}: viene utilizzata per mantenere la relazione. Ogni partner deve essere sicuro che l'altra parte continua ad esistere e fa ancora parte della relazione stabilita in precedenza dai router. Per far ciò i router periodicamente si scambiano dei messaggi di \textit{Keepalive}.
+\newline
+- \textbf{Network reachability}: ogni router mantiene un database delle reti che può raggiungere e la strada preferita per raggiungere ogni rete. Quando viene modificato qualcosa nel database il router invia un messaggio di \textit{Update} agli altri routers.

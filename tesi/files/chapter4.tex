@@ -1,0 +1,179 @@
+\chapter{SDN: Background and Motivation}\label{ch:chapter4}
+\section{Requisiti dell'Evoluzione Network}
+Un incredibile numero di articoli sta invitando le aziende che sviluppano dispositivi network e gli utenti a rivalutare il concetto dell'approccio tradizionale all'architettura della rete. Questi articoli sono raggruppabili in incremento della domanda, fornitura ed i pattern del traffico.
+
+\subsection{Incremento Della Domanda}
+- Cloud Computing: c'è stato un enorme passaggio sia per i servizi pubblici che privati ai servizi cloud. 
+\newline
+- Big Data: processare enormi quantità di data-set richiede l'utilizzo di migliaia di server in parallelo, che devono essere interconnessi gli uni con gli altri. C'è un'enorme e costante incremento di domanda per la capacità delle reti network ed i data center.
+\newline
+- Mobile Traffic: gli impiegati accedono alla rete della loro azienda costantemente anche dall'esterno, con i loro smartphone, tablet e pc. Questi dispositivi hanno sofisticate app che generano traffico audio-video, aumentando continuamente il carico della rete.
+\newline
+- The Internet of Things (IOT): la maggior parte degli oggetti genera un traffico modesto, anche se ci sono delle eccezioni come le video camere di sorveglianza. Un grande numero di questi dispositivi può rappresentare per la rete dell'azienda un grosso carico.
+
+\subsection{Fornitura in Aumento}
+Con l'incremento della domanda per la rete, anche le tecnologie della rete per assorbire questo grande traffico sono in continuo aumento ed evoluzione, in particolare dopo che le reti 4G e 5G hanno dato la possibilità ai dispositivi mobili di connettersi in massa alla rete. L'incremento delle tecnologie di trasmissione della rete è dovuto anche all'incremento dei vari dispositivi, come i LAN switches, routers, firewall, intrusion detection/prevention systems. Anno dopo anno stanno diventando sempre più grandi, con memorie più veloci, con buffer più grandi e ad accesso più rapido, tanto veloci quanto un processore. 
+
+\subsection{Traffic Pattern molto complessi}
+Con lo sviluppo di tutte queste tecnologie, si è sviluppato anche lo schema di traffico della rete e le architetture di rete tradizionali faticano a stare al passo con la domanda. Infatti fino ad oggi l'architettura dominante nelle imprese è il modello client-server che permette interazioni fra un client ed un server; in questo ambiente la rete può essere configurata staticamente ed è facilmente prevedibile il traffico della rete.
+\newline
+Un numero di sviluppatori ha mostrato quale potrebbe essere un modello più dinamico e con complessi schemi di traffico all'interno dell'industria:
+\newline
+- Gli applicativi client/server devono accedere a server e database multipli che devono comunicare fra loro, generando traffico orizzontale fra server e traffico verticale come il modello client/server.               
+\newline
+- La convergenza sulla rete di voce, dati, video genera un traffico impredicibile.
+\newline
+- Le UC (Unified Communications) hanno un pesante di applicazioni che necessitano un accesso multiplo ai servers.
+\newline
+- Il pesante uso di dispositivi mobili permette all'utente di accedere in ogni momento a dati e applicativi aziendale da ogni dispositivo e da ogni luogo. Infatti il traffico mobile è diventato una significante parte dell'infrastruttura di rete industriale.
+\newline
+- Il diffuso uso di cloud pubblici ha spostato quello che prima era il traffico locale per molte industrie, risultando in continuo aumento e con flussi di caricamento impredicibili.
+\newline
+- La nuova pratica comune di applicazioni e database server virtuali ha incrementato significativamente gli hosts che richiedono un alto volume di traffico per accedere alla rete e di conseguenza in ogni cambiamento fisico di dislocazione delle risorse del server.
+
+\subsection{Le Architetture di Rete Tradizionali sono Inadeguate}
+Con il grande sviluppo degli schemi di trasmissione e le crescenti performance dei dispositivi network, l'architettura di rete tradizionale risulta sempre più inadeguata. 
+\newline
+Il modello tradizionale di Internet si basa su un'architettura che utilizza il protocollo TCP/UDP, il quale ha tre caratteristiche portanti: 
+\newline
+- Sistema di indirizzamento finale a due livelli
+\newline
+- Routing basato sulla destinazione
+\newline
+- Sistema distribuito, controllo autonomo
+\newline
+Tradizionalmente il routing era  basato su ogni indirizzo di destinazione di ogni singolo pacchetto. In questo approccio di tipo DATAGRAM, dove ogni pacchetto è indipendente dal successivo, i pacchetti successivi possono seguire differenti strade attraverso internet ed i router si impegnano per trovare il cammino per ogni singolo pacchetto che comporti il minor ritardo. Più recentemente, per soddisfare i requisiti del QoS, i pacchetti vengono processati in termini di flussi di pacchetti.
+\newline
+L'ONF (Open Networking Foundation) ha delineato quattro limitazioni generali della tradizionale architettura di rete:
+\newline
+- Architettura statica e complessa: per rispondere alla  domanda di così tanti livelli di QoS, alto flusso di traffico e requisiti di sicurezza l'architettura è diventata sempre più complessa e difficile da gestire con un numero enorme di protocolli che aggiungono sempre più informazioni alla rete. La difficoltà più grande si ha quando si aggiungo o si muovono dispositivi all'interno della rete.
+\newline
+- Politiche inconsistenti: per implementare la sicurezza della rete su larga scala è necessario effettuare migliaia di modifiche. Infatti quando in una rete molto vasta si aggiunge una macchina virtuale (VM), quest'ultima può richiedere molte ore o addirittura giorni per essere configurata.
+\newline
+- Impossibile da ridimensionare: con l'aumento della domanda per la rete, sia in volume che in varietà, una soluzione adottabile potrebbe essere quella di aggiungere  switch e dispositivi di trasmissione, ma questo risulta complesso a causa della staticità della rete. Allora si può pensare a sovrascrivere porzioni di sottorete basandosi sulla predicibilità dei modelli di traffico, ma a causa dell'incremento dell'utilizzo della virtualizzazione e la varietà di applicazioni multimediali, tutto questo diventa impossbile.
+\newline
+- Dipendenza dal fornitore: per la natura attuale del traffico e della richiesta di rete, le imprese devono proporre e sviluppare nuove capacità e servizi per rispondere al cambiamento del business e alla domanda degli utenti. Un cospicuo numero di open interface ha abbandonato il mondo delle imprese per la scarsa produttività dei fornitori.                               
+
+\section{L'Approccio SDN}
+In questo capitolo parleremo dell'SDN mostrando come è stato disegnato e progettato per rispondere ai requisiti che richiede l'evoluzione della rete.
+
+\subsection{Requisiti}
+La ODCA (Open Data Center Alliance) ha diramato una lista di requisiti per definire un approccio moderno alla rete:
+\newline
+- Adaptività: la rete deve  aggiustare e rispondere dinamicamente in base alla necessità della singola applicazione, delle condizioni della rete o dell'esigenza di una azienda.
+\newline
+- Automazione: i cambiamenti delle policy devono essere diramati automaticamente, in modo tale da ridurre l'errore umano e il lavoro manuale.
+\newline
+- Manutenzione: l'introduzione di nuove caratteristiche e capacità (update software, patches) deve avvenire senza interrompere la continuità e senza causare interruzioni alle operazioni. 
+\newline
+- Modello di gestione: i software di gestione della rete devono permettere la gestione della rete a livello di modello, invece di implementare cambiamenti concettuali che necessitano di modificare singolarmente ogni elemento.
+\newline
+- Mobilità: le funzioni di controllo devono soddisfare anche la mobilità, inclusi dispositivi mobili degli utenti e server virtuali.
+\newline
+- Sicurezza integrata: le applicazioni di rete devono integrare senza interrompere la sicurezza, che deve essere ritenuta come uno dei servizi chiave e non come una aggiunta finale.
+\newline
+- Ridimensionamento su scala: l'implementazione deve avere la capacità di adattare la rete e i suoi servizi in base alla richiesta. 
+
+\subsection{Architettura SDN}
+Una analogia che possiamo disegnare sull'evoluzione dell'architettura della rete è il paragone che nasce spontaneo con lo sviluppo verticale delle architetture dei computer e dei loro sistemi operativi. Infatti ad oggi tutto l'ambiente di sviluppo hardware e software è dotato di una grandissima flessibilità; questo infatti permette ha permesso lo sviluppo di macchine virtuali che possono essere spostate da un server all'altro e attraverso piattaforme di diversa natura hardware e software. 
+\newline
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_3_1}
+\caption{Approccio Moderno}
+\label{fig:3_1}
+\end{figure}
+
+L'ambiente delle reti ad oggi si trova a dover fare i conti con alcune limitazioni e la difficoltà maggiore è quella di fare interfacciare le diverse applicazioni con l'infrastruttura della rete. 
+\newline
+Il concetto centrale dell'approccio SDN è quello di permettere agli sviluppatori e ai gestori delle reti di avere lo stesso tipo di controllo che ad oggi si ha sui server x86. Il concetto di open interface applicato all'architettura SDN è quello di avere differenti applicativi che comunicano nello stesso modo con i controller SDN.
+\newline
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth,height=\textheight,keepaspectratio]{images/fig_3_2}
+\caption{Control and Data Plane}
+\label{fig:3_2}
+\end{figure}
+
+Il data plane consiste in vari switches fisici e switches virtuali. In entrambi i casi gli switches si occupano di inoltro dei pacchetti. Le altre caratteristiche interne come ad esempio buffer o priority parameters sono modellate in base alle richieste del cliente. Ogni switch deve implementare un modello, fisico o astratto, di inoltro pacchetti. Questo modello è definito in termini di un open application programming interface (API) tra il control plane e il data plane (southbound API). 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_3_3}
+\caption{Architettura SDN}
+\label{fig:3_3}
+\end{figure}
+
+I controller SDN possono essere implementati direttamente su un server o su un server virtuale. OpenFlow o altre open API sono utilizzate per controllare gli switch nel data plane. In addizione, i controller utilizzano le informazioni sulle capacità e sulla domanda ottenuti dall'equipaggiamento della rete attraverso cui passa il flusso dei dati. I controller SDN mostrano inoltre le Northbound API che permettono agli sviluppatori e ai gestori delle reti di sviluppare un alto numero di applicativi personalizzati, molti dei quali non era possibile realizzare prima dell'avvento dell'SDN. 
+\newline
+Sono inoltre pensate delle horizontal APIs (Eastbound/Westbound) che sono capaci di comunicare e cooperare fra gruppi di controllers per sincronizzare gli stati.
+\newline
+A livello applicativo ci sono una varietà di applicazioni che possono interagire con i controller SDN. Un esempio sono reti ad alta efficenza energetica, monitoraggio di sicurezza, controllo degli accessi e gestione della rete.
+
+\subsection{Caratteristiche dell'SDN}
+Mettendo tutto insieme, le caratteristiche chiave dell'SDN sono le seguenti:
+\newline
+- Il control plane è separato dal data plane. I devices del data plane sono semplici dispositivi di inoltro pacchetti (packet-forwarding).
+\newline
+- Il control plane è implementato in un controller centralizzato. Il controller SDN ha quindi una visione centralizzata della rete o delle reti sotto il suo controllo. Il controller è un software portatile che può girare su server ed è capace di programmare l'inoltro dei dispositivi forte della sua visione centralizzata.
+\newline
+- Le open interfaces sono definite tra i dispositivi nel control plane e quelli nel data plane.
+\newline
+- La rete è programmabile in base alle applicazioni che girano in cima ai controller SDN. I controller SDN presentano una visione astratta delle risorse di rete per i vari applicativi.
+
+\section{SDN- e NFV-Related Standard}
+A differenza di altre aree tecnologiche, non c'è nessun corpo responsabile di sviluppare gli open standard per l'SDN o NFV. Piuttosto ci sono un alto numero di organizzazioni, consorzi industriali e svariate iniziative impegnate nel creare degli standard e delle linee guida per l'SDN e l'NFV. 
+
+\subsection{Standard Developing Organizations}
+Internet Society, ITU-T ed ETSI stanno avendo un contributo chiave nella standardizzazione dell'SDN e dell'NFV. 
+
+\subsubsection{Internet Society}
+I gruppi più attivi all'interno dell'Internet Society (ISOC) sono due: IETF e IRTF. L'ISOC è il comitato di coordinamento per il design, l'ingegnerizzazione e la gestione di Internet. Le aree coperte includono operazioni all'interno dello stesso Internet, standardizzazione di protocolli usati da sistemi o dalla rete Internet.
+\newline
+L'\textbf{Internet Engineering Task Forse (IETF)} ha gruppi di sviluppo che lavorano in aree specifiche dell'SDN:
+\newline
+- \textit{Interface to routing system (I2RS)}: sviluppa la capacità di interagire con i router e i protocolli di routing da applicare alle politiche di routing.
+\newline
+- \textit{Service function chaining}: sviluppa l'architettura e le capacità dei controllers di dirigere flussi di traffico attraverso la rete in modo tale che ogni piattaforma di servizio virtuale veda solo il traffico che deve dirigere.
+\newline
+L'\textbf{Internet Research Task Force (IRTF)} ha effettuato delle pubblicazioni che riguardano l'approccio nel costruire l'architettura dei layer SDN, discussioni in merito alle southbound API o alle varie APIs per i protocolli di routing.
+
+\subsubsection{ITU-T}
+La \textit{International Telecommunication Union-Telecommunication Standardization Sector (ITU-T)} è un'agenzia che ha definito standard nell'area delle telecomunicazioni. 
+\newline
+All'interno dell'ITU-T ci sono quattro team di studio (SGs):
+\newline
+- SG 13: network futuri, includendo il cloud computing, mobile e i network della next-generation.
+\newline
+- SG 11: requisiti di segnale, protocolli e test sulle specifiche.
+\newline
+- SG 15: trasporto, accessi e reti di casa.
+\newline
+- SG 16: multimedia.
+
+\subsubsection{ETSI: European Telecommunications Standards Institute}
+ETSI è riconosciuto dall'Unione Europea come una organizzazione europea standard anche se risulta un'organizzazione no-profit nonostante abbia un'impatto internazionale. Infatti ETSI ha avuto un ruolo chiave nel definire gli standard dell'NFV a livello di architettura, infrastruttura, metriche di qualità del servizio e politiche di sicurezza.
+
+\subsection{Industry Consortia}
+I consorzi di definizione degli standard hanno iniziato a svilupparsi negli anni 80 con lo scopo di fornire gli standard all'interno dell'avanzata frenetica del mondo tecnologico.
+\newline
+Il consorzio più importante nel mondo dell'SDN è l'\textit{Open Networking Foundation (ONF)} che è interamente dedicato alla promozione e all'adozione dell'SDN attraverso standard di sviluppo aperti. Il più importante contributo è la realizzazione di un protocollo OpenFlow e la realizzazione di API.  
+\newline
+Il protocollo OpenFlow è la prima interfaccia standard disegnata per l'SDN ed è già stata impiegata nello sviluppo di diverse reti, sia a livello hardware che software. 
+
+\subsection{Open Development Initiatives}
+Ci sono una serie di iniziative aperte che lavorano generalmente alla realizzazione di standard pubblici o di open software. Il numero di questi gruppi è diventato sempre più attivo nello sviluppo dell'SDN e l'NFV.
+\newline
+\textbf{OpenDaylight}
+\newline
+OpenDaylight è un software open source realizzato per girare su Linux. I suoi membri hanno realizzato numerosi controller per un'ampia gamma di applicativi.
+\newline
+\textbf{Open Platform for NFV}
+\newline
+Open Platform for NFV è un progetto open source dedicato ad accelerare l'adozione degli standard dell'NFV, aumentarne la consistenza, le performance e le componenti open source.  
+\newline
+\textbf{OpenSlack}
+\newline
+OpenSlack è un software open source che ha l'obiettivo di realizzare un cloud operating system completamente open source. 

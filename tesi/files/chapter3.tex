@@ -1,0 +1,117 @@
+\chapter{Requisiti e Tecnologie}\label{ch:chapter3}
+
+Questo capitolo introduce due meccanismi che sono fondamentali nel flusso operativo del network e nella sua capacità di trasmettere ed inviare pacchetti: il routing ed il congestion control.
+
+\section{Routing}
+
+\subsection{Caratteristiche}
+La caratteristica principale di Internet è quella di ricevere pacchetti da una fonte ed inviarli ad una nuova destinazione. Per permettere questo è necessario che venga definita una strada attraverso la rete e generalmente vengono utilizzate le performance della rete come criterio di decisione. 
+\newline
+Il criterio più semplice che viene utilizzato il cammino minimo attraverso la rete, ovvero quello che passa attraverso il minor numero di nodi. è un criterio di misurazione molto semplice che permette di minimizzare le risorse utilizzare dalla rete. 
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_2_7}
+\caption{Esempio di architettura di rete}
+\label{fig:3_1}
+\end{figure}
+\newline
+Le politiche di routing vengono decise anche in base ad alcuni criteri, come ad esempio scegliere la strada più veloce, minimizzare il tempo di delay oppure si può decidere di adottare solo alcune strade sicure per politiche di sicurezza.
+
+\subsection{Packet Forwarding - Inoltro Pacchetti}
+
+La funzione chiave di ogni router è quella di accettare pacchetti in arrivo e reindirizzare quest'ultimi. Per favorire questo processo ogni router è dotato di forwarding tables, ovvero delle tavole di inoltro pacchetti che mostrano per ogni nodo le caratteristiche e le strade da percorrere per raggiungere il nodo successivo.
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{images/fig_2_8}
+\caption{Packet Forwarding Tables}
+\label{fig:3_2}
+\end{figure}
+\newline
+Ogni router può essere responsabile di scoprire ed individuare le strade più appropriate oppure alternativamente può essere presente un network control center (centro di controllo della rete) che disegna le strade e mantiene una tabella di inoltro centrale. 
+\newline
+Le tabelle pù semplici, come quella mostrata in figura, contengono solo il nodo di destinazione, ma possono contenere anche informazioni addizionali come il source address, packet flow identifier ed il livello di sicurezza del pacchetto:
+\newline
+- FAILURE: quando un nodo o un collegamento fallisce non può più essere usato come parte della strada da seguire.
+\newline
+- CONGESTION: quando un'area della rete è fortemente congestionata, si desidera reindirizzare i pacchetti al di fuori dell'area della congestione, facendogli intraprendere strade alternative.
+\newline
+- TOPOLOGY CHANGE: l'inserimento di nuovi collegamenti o nodi modifica il routing (instradamento).
+
+Per un sistema di routing adattivo, l'informazione sullo stato della rete può essere scambiata tra i nodi o tra i nodi e il central controller.
+
+\subsection{Routing Protocols}
+Ogni router è capace di prendere decisioni di instradamento dei pacchetti in base alla conoscenza e alla topologia della rete ed alle condizioni di traffico e delay di internet. 
+\newline
+Infatti tra i router è richiesto un accordo di cooperazione dinamica, in particolare i router devono evitare porzioni della rete che falliscono e devono evitare porzioni della rete dove ci può essere congestione. Per permettere questo tipo di decisioni i routers si basano su protocolli di routing. 
+\newline
+Esistono due categorie di protocolli di routing che sono basate sul concetto di autonomous system (AS). 
+\newline
+Un sistema AS richiede determinate caratteristiche:
+\newline
+1. Un AS è un set di router e di reti controllato da una singola organizzazione.
+\newline
+2. Un AS consiste in un gruppo di routers che si scambiano informazioni attraverso protocolli di routing.
+\newline
+3. Ad eccezione del tempo di fallimento, un AS è connesso (graph-theoretic sense); c'è una strada per ogni coppia di nodi.
+\newline
+Un protocollo routing, chiamato Interior Router Protocol (IRP) passa le informazioni fra router all'interno di un AS e non necessita di essere implementato all'estero del sistema. Questa flessibilità permette agli IRPs di essere personalizzati su misura all'interno di specifiche applicazioni o per specifici requisiti. 
+\newline
+Può succedere che una rete sia costituita da più di un AS, come ad esempio una rete lan che collega più zone di un'università, che possono essere collegate per formare un unico AS. In questo caso gli algoritmi di routing e le tabelle di routing usate dai router possono cambiare. Infatti in questo caso al router devono essere passate anche informazioni esterne al singolo sistema AS e servirà un protocollo per passare informazioni attraverso routers di differenti AS. 
+\newline
+Questo protocollo prende il nome di exterior router protocol (ERP). Il protocollo ERP necessita di passare meno informazioni rispetto ad un IRP, poichè se ad esempio devo passare un'informazione fra due host di due reti AS, un router nel primo AS determina il target di AS ed indica una strada per raggiungere quel determinato sistema; una volta che il pacchetto è entrato in quel sistema, il router all'interno del sistema può cooperare per indirizzare quel pacchetto. 
+\newline
+L'ERP non conosce i dettagli e la strada che il pacchetto deve seguire una volta entrato nell'AS.
+
+\subsection{Elementi del Router}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_2_10}
+\caption{Elementi del router}
+\label{fig:3_3}
+\end{figure}
+\
+ La figura mostra una funzione di controllo del routing che include in particolare esecuzione di protocolli di routing, mantenimento di tabelle di routing e la supervisione alle politiche di controllo della congestione.
+\newline
+Ogni router è dotato di porte I/O connesse a quest'ultimo. Su ogni porta arrivano e partono pacchetti; per semplificare il modello possiamo dire che da una parte si accettano i pacchetti in arrivo e dall'altra si mantengono i pacchetti in attesa che partano. 
+\newline
+I pacchetti che arrivano sono memorizzati nell'input buffer della corrispondente porta, dopodichè il router lo esamina e prende una decisione basata sulle tabelle di inoltro dei pacchetti e sposta il pacchetto sul corrispondente output buffer. 
+\newline
+I pacchetti in coda per l'output sono trasmessi il più velocemente possibile e vengono messi in coda secondo la politica FIFO (First In First Out). Più comunemente ci sono anche altre regole più complesse che gestiscono questo flusso, come ad esempio la dimensione del pacchetto.
+
+\section{SDN e NFV}
+Con lo sviluppo e l'incremento del volume e della varietà del traffico internet, dovuto alla grande ricerca come i big-data, cloud computing e traffico mobile, è diventato sempre più difficile trovare un punto d'incontro tra QoS e requisiti QoE. Le reti hanno bisogno di essere più flessibili e adattive ed è per questo che si sono sviluppate due tecnologie adottate da diversi servizi network, ovvero il software-defined networking (SDN) e il network functions virtualization (NFV). \cite{sdn}
+
+\subsection{Software Defined Networking}
+L'SDN ha raggiunto un così ampio livello che sta rimpiazzando i tradizionali modelli network, infatti permette un enorme livello di flessibilità e di personalizzazione che va incontro alle nuove esigenze di networking e alle esigenze di tutto il compartimento IT come ad esempio il cloud, la mobilità, social network e video.
+\newline
+\newline
+\textbf{FUNZIONALITÀ DELL'SDN}
+\newline
+Ci sono due elementi che si prendono parte all'inoltro dei pacchetti, ovvero una funzione di controllo (control function) che decide la strada da seguire e la relaziona in base al traffico della rete, e una funzione dati (data function) che inoltra i dati basandosi sulle politiche della function control. Prima dell'avvento dell'SDN queste funzioni erano integrate nei dispositivi i connessi alla rete (router, bridge, packet switch). Con l'SDN, un controller centrale racchiude tutte le funzioni più complesse, incluso il routing, la nomenclatura, la policy e i controlli di sicurezza. 
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_2_15}
+\caption{Software Defined Networking}
+\label{fig:3_4}
+\end{figure}\newline
+Questo costituisce l'SDN control plane che è formato da uno o più SDN controller, i quali definiscono il flusso di dati che occorre nell'SDN data plane. Tutto il flusso attraverso la rete è configurato dal controller che verifica la fattibilità della comunicazione attraverso le politiche della rete. Se il controllore accorda il flusso, calcola una strada che quest'ultimo deve seguire ed apre il flusso a tutti gli switch presenti sulla rete, i quali si occupano solo di controllare il flusso. Questi switches costituiscono il data plane. La comunicazione fra controller e switches usa protocolli standard. 
+\newline
+\newline
+\textbf{KEY DRIVERS}
+\newline
+Un fattore chiave dell'SDN è la incredibile diffusione di server virtuali. Questi ultimi permettono di mascherare le risorse del server, il numero e le entità che compongono il server, i processori, il sistema operativo e gli utenti. Questo è possibile partizionando una singola macchina in multipli ed individuali servers conservando le risorse hardware. Inoltre rende possibile la migrazione del server in caso di possibili fallimenti della rete. La virtualizzazione dei server è diventato un elemento centrale in combinazione con i big data ed il cloud computing, ma ha creato problemi con l'architettura rete tradizionale. Un problema è la configurazione delle virtual LAN, VLAN, che necessitano di essere riconfigurate ogni volta che viene spostato un server virtuale. Un altro effetto della virtualizzazione dei server è che il modello è molto diverso dal classico client/server a cui siamo abituati, poichè i server sono in continua comunicazione fra loro ed i flussi server-to-server cambiano di locazione ed intensità tantissime volte, richiedendo un approccio flessibile al network. Un altro fattore che richiede una risposta rapida nell'allocare risorse network è la continua evoluzione ed il continuo aumento nell'utilizzo di dispositivi mobili, come smartphone, tablet e computer portatili che rapidamente cambiano il loro punto di connessione alla rete, la quale deve essere in grado di cambiare rapidamente le risorse, il QoS e mantenere la sicurezza sui dispositivi mobili.
+L'infrastruttura network esistente è in grado di rispondere ai cambiamenti per il controllo del traffico, ma questo richiede una grande spesa di tempo e di infrastrutture se la rete è molto grande e ci sono molti dispositivi. La rete deve configurare ogni tipologia di dispositivo separatamente ed aggiustare le performance ed i parametri di sicurezza sessione per sessione e per tipo di applicazione. Su una larga scala, quando una macchina virtuale, VM, viene creata può richiedere ore o perfino giorni per essere configurata.
+
+\subsection{Network Function Virtualization}
+Attualmente la tecnologia delle VM attraverso internet o nell'industria del network è stata usata con la funzione di server a livello applicativo come ad esempio database servers, cloud server, web servers and email servers. La stessa tecnologia può essere però utilizzata per i dispositivi della rete come ad esempio routers, LAN switches, firewall e IDS/IPS servers. 
+Il Network Function Virtualization (NFV) scollega le funzioni della rete, come per esempio il routing, il firewalling, intrusion detection ed il Network Address Translation dalle piattaforme proprietarie hardware e implementa queste funzioni via software. Utilizza tecnologie virtuali standard che girano su dispositivi hardware molto performanti per virtualizzare queste funzioni del network ed è applicabile sia alle infrastrutture di rete via cavo che wireless. 
+NFV ha un delle proprietà in comune con SDN:
+- muove funzionalità sul lato software
+- usa piattaforme hardware dedicate invece di piattaforme hardware proprietarie
+- usa applicazioni standard o applicazioni aperte (APIs)
+- supporta con più efficienza modifiche e cambiamenti della rete
+NFV ed SDN sono indipendenti ma complementari poichè quest'ultimo scollega i dati ed il piano di controllo, rendendo il controllo e l'instradamento della rete più flessibile ed efficiente. NFV invece scollega le funzioni della rete da specifiche piattaforme hardware attraverso la virtualizzazione per rendere queste funzioni pù flessibili ed efficienti. Anche SDN può essere virtualizzato, ma invece che usati singolarmente, SDN ed NFV possono essere combinati per raggiungere grandi benefici e grandi performance. 

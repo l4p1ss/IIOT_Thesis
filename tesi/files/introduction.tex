@@ -1,0 +1,71 @@
+\chapter{Introduzione}\label{ch:introduzione}
+È un'opinione condivisa che il successo del paradigma Industry 4.0 (I4.0) sarà abilitato dall'uso sinergico dell'internet of Things (IoT), le comunicazioni Machine to Machine (M2M) e i Cyber Physical System (CPS). A riguardo, è doveroso premettere, tuttavia, che esistono numerose limitazioni legate alle architetture protocollari che le reti di telecomunicazioni tradizionali non sono in grado di risolvere compiutamente e dinamicamente. Il Software Defined Networking (SDN) è, invece, un approccio recentemente introdotto capace di affrontare queste problematiche in una prospettiva integrata. \cite{I4.0}
+\newline
+\newline
+Specificatamente, SDN, offrirà un efficace supporto per ambienti eterogenei in cui numerosi ed eterogenei smart devices cooperano tra loro per eseguire compiti complessi senza supervisione e assistenza manuale. Addirittura, i prodotti stessi saranno dei soggetti attivi partecipanti al processo decisionale e coinvolti nell'ottimizzazione della loro stessa produzione. Ciò permetterà di personalizzare i processi lavorativi in modo tale da accrescere la produttività, soddisfare i bisogni dei clienti, migliorare le tecnologie industriali ed aumentare l'efficienza energetica. 
+\newline
+\newline
+La crescita di interesse per l'Industria 4.0 (I4.0) sta motivando la ricerca di nuove tecnologie che possono aiutare la sua compiuta realizzazione. L'Internet of Things (IoT), la comunicazione Machine to Machine (M2M) ed i Cypher Physical System (CPS) sono elementi essenziali per la realizzazione di questo paradigma innovativo, anche se sussistono problemi e limitazioni legati alla comunicazione che le attuali reti di comunicazioni non possono risolvere. Il Software Defined Networking (SDN) è un nuovo paradigma di networking che può gestire molte di queste problematiche.
+\newline
+Generalmente I4.0 rappresentano ambienti eterogenei in cui centinaia di smart devices, con caratteristiche diverse, cooperano tra loro per eseguire compiti complessi senza supervisione e assistenza o manuale. In particolare, i prodotti all'interno di queste Intelligent Industries non saranno più oggetti passivi che subiranno le scelte gestionali ma parteciperanno e diventeranno essenziali per il processo decisionale e per l'ottimizzazione della loro produzione. \cite{industrialCommunication}
+\newline
+\newline
+Il principale fine di tali manifatture è quello di integrare l'Information Technology negli impianti industriali e personalizzare i processi lavorativi in modo tale da accrescere la produttività, soddisfare i bisogni dei clienti, migliorare le tecnologie industriali ed aumentare l'efficienza energetica. Infatti l'obiettivo di questo progetto di tesi sarà proprio questo. 
+\newline
+\newline
+Alcune delle caratteristiche che le \textit{Smart Industries} dovranno avere sono:
+\newline
+- \textbf{Personalizzazione di massa}: i processi di produzione dovranno soddisfare i vari requisiti degli ordini produttivi permettendo di includere individui nella progettazione ed abilitare modifiche anche all'ultimo minuto.
+\newline
+- \textbf{Flessibilità}: processi di produzione intelligenti ed auto-configuranti dovranno considerare diversi aspetti come il tempo, la qualità, i prezzi e gli aspetti ecologici.
+\newline
+- \textbf{Visibilità di fabbrica e processi di decisione ottimizzati}: IoT fornirà una trasparenza end-to-end real time consentendo un'ottimizzazione all'interno dell'area di produzione e nella fabbrica stessa.
+\newline
+- \textbf{Catena di produzione connessa}: IoT aiuterà i produttori a comprendere meglio le informazioni sulla catena di produzione che potranno essere fornite in real time. Collegando le macchine e le attrezzature ai fornitori, tutte le parti potranno comprendere le interdipendenze, il flusso dei materiali ed i tempi del ciclo di produzione.
+\newline
+- \textbf{Gestione Energetica}: il miglioramento dell'efficienza energetica richiede la conoscenza dei livelli di consumo della linea di produzione e delle macchine. I contatori intelligenti potranno fornire dati in tempo reale e prendere decisioni in base alle loro capacità ed in collaborazione con servizi esterni.
+\newline
+- \textbf{Creare valore dai big data raccolti}: nuovi miglioramenti potranno essere ottenuti dall'analisi di grandi quantità di dati prodotti dai dispositivi IoT.
+\newline
+- \textbf{Monitoraggio remoto}: la tecnologia IoT consentirà il coinvolgimento di terzi (ad esempio fornitori) nel monitoraggio, nel funzionamento e nella manutenzione della fabbrica.
+\newline
+- \textbf{Manutenzione proattiva}: il monitoraggio e la valutazione delle prestazioni in tempo reale avranno un impatto positivo  sul miglioramento della manutenzione proattiva.
+\newline
+\newline
+L'adozione delle I4.0 con le caratteristiche sopra citate porta con sé ulteriori problemi soprattuto nel caso di fabbriche medio-grandi. Le motivazioni specifiche sono le seguenti: 
+\newline
+- Migliaia di dispositivi IoT da gestire, di diversi fornitori e con diverse tecnologie potrebbero significare dozzine di strumenti e di interfacce utente da utilizzare per poterli gestire.
+\newline
+- L'eterogeneità dei dispositivi IoT potrebbe comportare protocolli di comunicazione e formati di dati diversi. Questo tradotto può essere interpretato come una mancanza di interoperabilità.
+\newline
+- Le reti convenzionali e le macchine industriali coesisteranno con le nuove infrastrutture IoT e tutte saranno "connesse" per raggiungere la piena adozione dell'I4.0.
+\newline
+- Il traffico dati nell'infrastruttura di rete industriale utilizzata potrebbe aumentare in modo significativo, causando ritardi e congestioni. Il traffico dati deve essere instradato in modo efficiente per evitarlo. 
+\newline
+\newline
+i primi due potrebbero essere risolti utilizzando una piattaforma Cloud IoT locale o remota, mentre le ultime due rimarrebbero parzialmente, o totalmente, irrisolti. Alcune proposte nella recente letteratura scientifica hanno delineato alcune soluzioni software per risolvere questi problemi ma non ha considerato l'eterogeneità dello scenario applicativo.
+\newline
+Invece, l'approccio SDN, attraverso la suddivisione netta tra Data Plane e Control Plane, può risolvere gran parte di queste problematiche e diventare la chiave abilitante per l'I4.0. Sebbene SDN sia stato inizialmente proposto per orchestrare reti IT, attualmente alcuni Controller SDN includono \textit{plugin} per connettere le \textit{Southbound interface} a dispositivi IoT e reti. Grazie alla sua modularità, SDN permette a chiunque di sviluppare sia nuovi plugin per quelle tecnologie coinvolte negli scenari industriali, sia innovative applicazioni per la gestione della rete. Inoltre, grazie alla proprietà di \textit{clusterizzazione} che alcuni controller SDN possiedono (ONOS, OpenDayLight), è possibile ottenere un'altra scalabilità, affidabilità e tolleranza ai guasti.
+\newline
+\newline
+\newline
+I principali benefici di SDN che possono essere sfruttati dall'I4.0 sono riassunti di seguito:
+\newline
+- La gestione dei task è automatizzata e isolata dalla complessità dell'infrastruttura fisica attraverso interfacce \textit{easy-to-use}.
+\newline
+- Nuovi servizi e applicazioni possono essere forniti in breve tempo; inoltre l'amministrazione IT ha la possibilità di programmare funzionalità e esercizi di rete eliminando la dipendenza dai costruttori hardware.
+\newline
+ - Le politiche di routing su base flusso possono essere configurate e gestite per l'intera rete usando la stessa soluzione software.
+\newline
+- Le applicazioni possono sfruttare l'informazione centralizzata sullo stato della rete, reagendo in tempo reale ed eseguire cambiamenti aumentando le prestazioni della rete stessa.
+\newline
+- I costi operativi per la gestione della rete industriale sono significativamente ridotti.
+\newline
+\newline
+Riassumendo, nel contesto delle I4.0 o \textit{Industrial Internet of Things (IIOT)}, si rende necessario la gestione di una rete di sensori ed attuatori, eventualmente mobili, su una scala spaziale estesa ed in linea di principio, eterogenei. Ciò comporta alcune problematiche che le attuali reti di telecomunicazioni non riescono a gestire. L'approccio SDN, essendo stato studiato ed implementato per sopperire alle limitazioni delle reti tradizionali, rappresenta la soluzione ottimale per le esigenze di una fabbrica diffusa. Dato il numero elevato di dispositivi IoT che saranno impiegati nelle I4.0, risulta necessario l'adozione di un Control Plane distribuito (\textit{cluster di controller SDN}) con specifici controller SDN, per ogni dominio omogeneo, interconnessi attraverso l'interfaccia East-WestBound.
+\newline
+Dato che tali controller rappresentano un punto di aggregazione dinamica delle informazioni di rete, possono essere sfruttati da soluzioni di ML e da applicazioni per ottimizzare il processo produttivo e per reagire tempestivamente a situazioni di guasto. Tale architettura sarebbe in grado di supportare procedure di consenso distribuito naturalmente P2P sia tra controller sia tra dispositivi inter e intra domain. Inoltre, la proprietà di re-indirizzamento dinamico e programmabile dei flussi dati potrebbe essere sfruttata da un Network Function Orchestrator per il rapido dispiegamento, importazione, adattamento, migrazione e chaining di funzioni virtuali. 
+\newline
+Un aspetto particolarmente interessante è rappresentato, infine, dalla possibilità di trasferire una parziale visione della rete agli Switch coinvolti, laddove questo potrebbe aiutare ad alleggerire le responsabilità del Controller limitandole alle condizioni operative più eccezionali e sfidanti, mentre gli Switch potrebbero autonomamente gestire contesti con un grado di adattività inferiore. In particolar modo, differentemente dai normali Switch stateless usati nelle tradizionali SDN, gli Switch utilizzati nelle IIoT potrebbero possedere uno stato che verrebbe modificato a seconda delle informazioni ricevute dai dispositivi IoT ad esso connessi. A tale stato corrisponderebbe un comportamento diverso da parte dello Switch che quindi, in modo dinamico ed automatico e senza la collaborazione del Controller, cambierebbe la sua politica di inoltro.  Questo consentirebbe di aumentare la scalabilità della rete e diminuire maggiormente la probabilità di congestioni. 
+\newline
+In questo progetto di tesi, il sistema é stato realizzato secondo il paradigma SDN, nello specifico é stato utilizzato SDN-WISE.

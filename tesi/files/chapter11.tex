@@ -1,0 +1,264 @@
+\chapter{Simulazioni}\label{ch:chapter11}
+\section{Scenari Analizzati}
+In questo capitolo verranno discussi quattro tipi di simulazioni effettuate sul sistema per simulare vari scenari reali che si potrebbero presentare in una catena industriale. Per spiegare al meglio la simulazione e come i vari componenti del sistema interagiscono fra di essi, sono presenti un flow chart ed un sequence diagram per ogni tipo di scenario possibile.
+\newline
+Per effettuare le simulazioni sono state implementate quattro possibili combinazioni mediante l'utilizzo della probabilità. In particolare:
+\newline
+- \textbf{Caso Ottimo}: fascia di probabilità compresa fra 0.8 ed 1.0.
+\newline
+- \textbf{Caso Pessimo}: fascia di probabilità compresa fra 0.0 e 0.2.
+\newline
+- \textbf{Caso Intermedio - RESTART}: fascia di probabilità compresa fra 0.3 e 0.5.
+\newline
+- \textbf{Caso Intermedio - RELOAD}: fascia di probabilità compresa fra 0.6 e 0.7.
+\newline
+L'obiettivo primario di questo progetto è stato quello di creare una riproduzione di una catena industriale IIoT 4.0 che fosse \textit{loop-less} ed altamente affidabile. Di seguito verrà descritto ogni possibile caso in maniera più approfondita.
+\newline
+Nella seconda parte del capitolo invece ci concentreremo sui risultati delle simulazioni, andando a misurare i ritardi all'interno dei vari casi e facendo una stima su come questo possa influenzare le quantità prodotte in una catena industriale.  
+
+\subsection{Scenario Caso Ottimo}
+Il primo caso che andremo ad analizzare è il caso ottimo, ovvero quando la catena industriale IoT riesce ad eseguire tutte le lavorazioni senza rilevare anomalie o guasti. 
+\newline
+Il verificarsi del caso ottimo avviene con una probabilità che oscilla fra il 70\% ed il 100\%, a seconda del caso che si vuole studiare ed analizzare; la probabilità è piuttosto bassa, ma l'obiettivo è stato quello di analizzare in maniera critica la catena di montaggio, per permettere così di creare una catena \textit{high-quality} e con bassa tolleranza di errori o anomalie; basta pensare, ad esempio, ad una catena di montaggio dove vengono prodotti microprocessori e dove ogni minima imperfezione, anche la più microscopica, può produrre un pessimo risultato ed un prodotto di qualità scadente.  
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{images/fig_11_1}
+\caption{Flow Chart: Caso Ottimo}
+\label{fig:6_4}
+\end{figure}
+\newline
+Nella figura [11.1] è rappresentato il flow-chart del caso ottimo, dove si può notare che il prodotto entra in fase di lavorazione ed arriva alla fine senza interruzioni e senza alcun rilevamento di anomalie. 
+\newline
+Nella figura sottostante [11.2] è invece rappresentato il sequence diagram di tutte le operazioni che vengono effettuate dai vari attori della rete. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.70\textwidth,height=\textheight,keepaspectratio]{images/fig_11_2}
+\caption{Sequence Diagram: Caso Ottimo}
+\label{fig:6_4}
+\end{figure}
+\newline
+Vediamo adesso invece che cosa avviene sulla macchina virtuale, sia all'interno del simulatore Cooja che dentro la console di Intellij IDEA. 
+\newline
+Di seguito sono riportate le immagini di quello che possiamo leggere all'interno del pannello Mote Output e nella Console di Intellij IDEA. Si noti bene che le simulazioni prese in esempio per le immagini sono con una rete al cui interno sono presenti un Sink, due sensori e due attuatori. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_3}
+\caption{Cooja - Mote Output: Caso Ottimo}
+\label{fig:6_4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_4}
+\caption{Intellij IDEA - Console: Caso Ottimo}
+\label{fig:6_4}
+\end{figure}
+
+\subsection{Scenario Caso Pessimo}
+Il secondo caso che andremo ad analizzare è il caso pessimo, ovvero quando la catena industriale IoT rileva un'anomalia ed interrompe quindi la lavorazione, scartando il pezzo in lavorazione. 
+È sicuramente il caso peggiore che si può presentare in fase di lavorazione, poiché oltre ad una perdita di tempo che va ad impattare la produttività della catena, abbiamo anche una perdita materiale di risorse poichè il pezzo viene scartato. Il caso pessimo si verifica con una probabilità del 10\%.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{images/fig_11_5}
+\caption{Flow Chart: Caso Pessimo}
+\label{fig:6_4}
+\end{figure}
+Nella figura [11.5] è rappresentato il flow-chart del caso pessimo, dove si può notare che il prodotto entra in fase di lavorazione, rileva un'anomalia e termina la lavorazione.
+\newline
+Nella figura sottostante [11.6] è invece rappresentato il sequence diagram di tutte le operazioni che vengono effettuate dai vari attori della rete. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.70\textwidth,height=\textheight,keepaspectratio]{images/fig_11_6}
+\caption{Sequence Diagram: Caso Pessimo}
+\label{fig:6_4}
+\end{figure}
+\newline
+Vediamo adesso invece che cosa avviene sulla macchina virtuale, sia all'interno del simulatore Cooja che dentro la console di Intellij IDEA. 
+\newline
+Di seguito sono riportate le immagini di quello che possiamo leggere all'interno del pannello Mote Output e nella Console di Intellij IDEA. Si noti bene che le simulazioni prese in esempio per le immagini sono con una rete al cui interno sono presenti un Sink, due sensori e due attuatori. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_7}
+\caption{Cooja - Mote Output: Caso Pessimo}
+\label{fig:6_4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_8}
+\caption{Intellij IDEA - Console: Caso Pessimo}
+\label{fig:6_4}
+\end{figure}
+
+\subsection{Scenario Caso Intermedio - Restart}
+Il terzo caso che andremo ad analizzare è uno dei due casi casi intermedi; in particolare quest'ultimo è stato denominato Restart, poiché quando viene rilevata un'anomalia il pezzo viene rinviato all'inizio della catena di lavorazione e gli viene fatta ripetere tutta la lavorazione fin dal passo iniziale. Questo avviene per permettere una maggiore qualità ed affidabilità sulla produzione della catena di montaggio.
+\newline
+Il caso intermedio Restart si verifica con una probabilità del 20\%.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.50\textwidth,height=\textheight,keepaspectratio]{images/fig_11_9}
+\caption{Flow Chart: Caso Intermedio - RESTART}
+\label{fig:11_9}
+\end{figure}
+\newline
+Nella figura [11.9] è rappresentato il flow-chart del caso intermedio Restart, dove si può notare che il prodotto entra in fase di lavorazione, viene rilevata un'anomalia ed il pezzo viene rinviato all'inizio della catena di montaggio per iniziare nuovamente la lavorazione.
+\newline
+Nella figura sottostante [11.10] è invece rappresentato il sequence diagram di tutte le operazioni che vengono effettuate dai vari attori della rete. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.70\textwidth,height=\textheight,keepaspectratio]{images/fig_11_10}
+\caption{Sequence Diagram: Caso Intermedio RESTART}
+\label{fig:6_4}
+\end{figure}
+
+Vediamo adesso invece che cosa avviene sulla macchina virtuale, sia all'interno del simulatore Cooja che dentro la console di Intellij IDEA. 
+\newline
+Di seguito sono riportate le immagini di quello che possiamo leggere all'interno del pannello Mote Output e nella Console di Intellij IDEA. Si noti bene che le simulazioni prese in esempio per le immagini sono con una rete al cui interno sono presenti un Sink, due sensori e due attuatori. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_11}
+\caption{Cooja - Mote Output: Caso Intermedio - Restart}
+\label{fig:6_4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_12}
+\caption{Intellij IDEA - Console: Caso Intermedio - Restart}
+\label{fig:6_4}
+\end{figure}
+
+\subsection{Scenario Caso Intermedio - Reload}
+Il quarto ed ultimo caso che andremo ad analizzare è l'altro caso intermedio; in particolare è stato chiamato Reload, poiché quando viene rilevata un'anomalia, viene fatta ripetere al pezzo quello step di lavorazione dove si è rilevato un qualcosa di anomalo. Questo avviene per permettere una maggiore qualità ed affidabilità sulla produzione della catena di montaggio e consente così di risparmiare risorse e tempo utile per la produzione.
+\newline
+Il caso intermedio Reload si verifica con una probabilità del 30\%.
+\newline
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_13}
+\caption{Flow Chart: Caso Intermedio - RELOAD}
+\label{fig:6_4}
+\end{figure}
+Nella figura [11.3] è rappresentato il flow-chart del caso intermedio Restart, dove si può notare che il prodotto entra in fase di lavorazione, viene rilevata un'anomalia ed il pezzo viene rinviato all'inizio della catena di montaggio per iniziare nuovamente la lavorazione. Il caso intermedio Reload si verifica con una probabilità del 30\%.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_14}
+\caption{Sequence Diagram: Caso Intermedio RELOAD}
+\label{fig:6_4}
+\end{figure}
+Nella figura sottostante [11.14] è invece rappresentato il sequence diagram di tutte le operazioni che vengono effettuate dai vari attori della rete.
+\newline
+Vediamo adesso invece che cosa avviene sulla macchina virtuale, sia all'interno del simulatore Cooja che dentro la console di Intellij IDEA. 
+\newline
+Di seguito sono riportate le immagini di quello che possiamo leggere all'interno del pannello Mote Output e nella Console di Intellij IDEA. Si noti bene che le simulazioni prese in esempio per le immagini sono con una rete al cui interno sono presenti un Sink, due sensori e due attuatori. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_15}
+\caption{Cooja - Mote Output: Caso Intermedio - Reload}
+\label{fig:6_4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.60\textwidth,height=\textheight,keepaspectratio]{images/fig_11_16}
+\caption{Intellij IDEA - Console: Caso Intermedio - Reload}
+\label{fig:6_4}
+\end{figure}
+
+
+
+\section{Risultati delle simulazioni}
+In questa seconda parte del capitolo vedremo i risultati delle simulazioni descritte in precedenza, soffermandoci su un'analisi accurata dei ritardi che i vari casi possono produrre sulla catena industriale IIoT 4.0 e l'impatto che possono avere sulla produzione. 
+
+\subsection{Misurazione del Ritardo}
+In questo progetto di catena di montaggio IIoT applicata al paradigma dell'Industria 4.0 è interessante studiare i ritardi che i vari casi implementanti possono generare.
+\newline
+Prima di fare ciò occorre definire in maniera matematica come è composta la funzione ritardo complessiva, dato che influiscono su di essa molti fattori. In particolare la funzione ritardo è così definita:
+\newline
+\newline
+\textit{RITARDO COMPLESSIVO} = \textit{Ritardo Lavorazione} + \textit{Ritardo Lettura Sensore} + \textit{Ritardo Trasmissione}
+\newline
+\newline
+Vediamo adesso nel dettaglio cosa significano le varie voci sui ritardi:
+\newline
+- \textbf{Ritardo Lavorazione}: questo ritardo è dovuto al tempo che impiega ogni attuatore a svolgere la lavorazione a lui assegnata. Il tempo stimato è di circa 5.0s per ogni step di lavorazione.
+\newline
+- \textbf{Ritardo Lettura Sensore}: questo ritardo è dovuto al tempo che ogni sensore impiega a leggere i dati sulla lavorazione appena completata. Il ritardo medio è di circa 100ms.
+\newline
+- \textbf{Ritardo Trasmissione}: questo ritardo è dovuto al tempo che impiegano i vari attori della rete a comunicare fra di loro. Dai dati raccolti, possiamo affermare che in media su una rete composta da un sink, quattro sensori e quattro attuatori il ritardo di trasmissione si attesta fra i 300ms ed i 350ms. Ci aspettiamo quindi che questo aumenti con l'aumentare delle dimensioni della rete.
+\newline
+Vediamo adesso nello specifico caso per caso. 
+
+\subsubsection{Caso Ottimo}
+Il primo caso che valutiamo è proprio il caso ottimo. In questo tipo di simulazione non sono presenti ritardi dato che il pezzo viene lavorato dall'inizio alla fine senza incorrere in anomalie o ricevere interruzioni. Vediamo allora il grafico che raffigura sulle ascisse una catena inizialmente composta da un sink e da un minimo di un attuatore e un sensore fino ad massimo di dieci attuatori e dieci sensori, mentre sulle ordinate il tempo medio dopo dieci prove. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_11_17}
+\caption{Tempo di esecuzione medio dopo dieci prove}
+\label{fig:6_4}
+\end{figure}
+
+Come ci potevamo aspettare dalla teoria, questa funzione cresce linearmente al variare del tempo e  con l'aumentare delle dimensioni della rete.
+
+\subsubsection{Caso Pessimo}
+Il secondo caso che valutiamo è il caso pessimo. Questo rappresenta sicuramente il caso peggiore che si può verificare durante l'esecuzione della catena di montaggio. Infatti ricordiamo che in caso si verifichi il caso pessimo il pezzo viene integralmente scartato; da ciò possiamo quindi dedurre che il tempo di esecuzione sia in realtà tutto ritardo.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_11_18}
+\caption{Ritardo Complessivo medio dopo dieci prove}
+\label{fig:6_4}
+\end{figure}
+
+Anche in questo caso la funzione cresce linearmente, essendo il ritardo nel caso pessimo direttamente proporzionale all'aumentare della rete e al tempo.
+
+\subsubsection{Caso Intermedio - Restart}
+Il primo caso intermedio è il caso che abbiamo chiamato \textit{Restart}, ovvero quando durante una lavorazione si rileva una anomalia e si ritorna all'inizio della catena di montaggio, ripetendo la lavorazione. 
+\newline
+Di seguito è riportato il grafico dove vengono messi a confronto i tempi di esecuzione del caso ottimo e del caso restart.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_11_19}
+\caption{Tempi di Esecuzione a confronto: Ottimo vs Restart}
+\label{fig:6_4}
+\end{figure}
+In particolare il grafico in rosso rappresenta il tempo di esecuzione del caso ottimo, mentre quello in nero il tempo di esecuzione del caso intermedio Restart.
+È sicuramente il caso più dispendioso e come potevamo aspettarci, all'aumentare delle dimensioni della rete, aumenta il tempo di esecuzione. In particolare la discrepanza che si verifica fra i due casi è quantificabile come ritardo nell'esecuzione della catena di montaggio. 
+\newline
+Volendo fare una stima e quantificare questo ritardo in secondi, possiamo dire che in media, considerando una rete che varia da uno fino a dieci nodi, e considerando le dieci iterazioni svolte come prova, il ritardo medio è di circa 23,3 secondi.
+
+\subsubsection{Caso Intermedio - Reload}
+Nell'ultimo caso analizzato, ovvero il secondo caso intermedio denominato \textit{Reload}, si ha il rilevamento di un'anomalia che comporta la ripetizione dello step di lavorazione dove quest'ultima si è verificata. Infatti il pezzo ripete la lavorazione nel punto in cui era stato fallace, per poi arrivare al termine di tutta la catena di montaggio.
+\newline
+Di seguito è riportato il grafico dove vengono messi a confronto i tempi di esecuzione del caso ottimo e del caso reload.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{images/fig_11_20}
+\caption{Tempi di Esecuzione a confronto: Ottimo vs Reload}
+\label{fig:6_4}
+\end{figure}
+In particolare il grafico in rosso rappresenta il tempo di esecuzione del caso ottimo, mentre quello in nero il tempo di esecuzione del caso intermedio Reload. È sicuramente un caso in cui ci aspettiamo del ritardo, ma come si riesce dal leggere dal grafico risulta molto contenuto. Possiamo affermare e quantificare questo ritardo medio, sempre considerando una rete che varia da uno fino a dieci nodi, e considerando le dieci iterazioni svolte come prova, come un ritardo di circa 5.4 secondi.
+
+\subsection{Quantità prodotte}
+In questa ultima parte di capitolo andremo ad analizzare come i vari casi studiati in precedenza vanno ad influenzare le quantità prodotte da una catena industriale IIoT per l'Industria 4.0, analizzando in forma teorica il rate e la frequenza relativa. Vediamoli adesso più nel dettaglio:
+\newline
+\newline
+- \textbf{Rate} = \begin{math}\frac{Numero \quad di \quad Pezzi}{Intervallo \quad temporale}\end{math}
+\newline
+\newline
+Il rate della catena industriale viene calcolato come il numero di pezzi prodotti in un determinato intervallo temporale. Dagli studi fatti possiamo aspettarci che il rate sia massimo nel caso ottimo e che tenda a dimunire negli altri casi, toccando il minimo nel Caso Intermedio Restart, dove ho il ritardo maggiore. Il rate ha come unità di misura pezzi/secondo.
+\newline
+\newline
+- \textbf{Frequenza Relativa} = \begin{math}{Numero\quad di \quad volte \quad che \quad si \quad verica \quad evento}\over{Numero \quad totale \quad eventi}\end{math}.
+\newline
+\newline
+La formula matematica della frequenza relativa può essere utilizzata nella nostra catena industriale, ad esempio, per verificare la frequenza con cui vengono scartati i pezzi rispetto alla frequenza di successo. In questo caso mi aspetto di avere il massimo nel caso ottimo, mentre il minimo sarà chiaramente nel caso pessimo, dove vengono scartati la maggior parte dei pezzi. 
+
+
+
+
